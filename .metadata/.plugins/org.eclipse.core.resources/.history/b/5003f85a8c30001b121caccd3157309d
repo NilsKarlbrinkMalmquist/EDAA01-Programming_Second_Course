@@ -1,0 +1,80 @@
+package bst;
+
+//import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;import java.util.Comparator;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class TestBinarySearchTree {
+	
+	private BinarySearchTree<Integer> myIntTree;
+	private BinarySearchTree<String> myStringTree;
+	
+	private BinarySearchTree<Integer> myIntTreeC;
+	private BinarySearchTree<String> myStringTreeC;
+	private Comparator<Integer> compInt;
+	private Comparator<String> compString;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		myIntTree = new BinarySearchTree<Integer>();
+		myStringTree = new BinarySearchTree<String>();
+		
+//		myIntTreeC = new BinarySearchTree<Integer>(compInt);
+//		myStringTreeC = new BinarySearchTree<String>(compString);
+	}
+
+	@AfterEach
+//	void tearDown() throws Exception {
+//		myIntTree = null;
+//		myStringTree = null;
+//		myIntTreeC = null;
+//		myStringTreeC = null;
+	}
+
+	@Test
+	void testAdd() {
+		assertTrue(myIntTree.add(5));
+		assertTrue(myIntTree.add(3));
+		//assertTrue(myIntTree.add(8));
+		myIntTree.add(8);
+		
+		assertFalse(myIntTree.add(8), "Should be false");
+		
+		//assertTrue(myIntTreeC.add(5));
+		//assertTrue(myIntTreeC.add(3));
+		//assertTrue(myIntTreeC.add(8));
+		//assertFalse(myIntTreeC.add(8));
+		
+		
+		assertTrue(myStringTree.add("Balin"));
+		assertTrue(myStringTree.add("Filin"));
+		assertTrue(myStringTree.add("Anna"));
+		assertFalse(myStringTree.add("Anna"));
+		
+	}
+
+	@Test
+	void testHeight() {
+		
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testSize() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	void testClear() {
+		fail("Not yet implemented");
+	}
+
+}
