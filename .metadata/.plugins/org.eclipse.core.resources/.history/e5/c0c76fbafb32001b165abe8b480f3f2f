@@ -175,7 +175,17 @@ public class BinarySearchTree<E> {
 			add(node.element);
 			buildTree(list, first, mid - 1);
 			buildTree(list, mid + 1, last);
+			//return node;
 		}
+//		else {
+//			int mid = first + (last - first) / 2;
+//			add(list.get(mid));
+//			
+//			buildTree(list, first, mid);
+//			
+//			buildTree(list, mid, last);
+//			
+//		}
 	}
 	
 

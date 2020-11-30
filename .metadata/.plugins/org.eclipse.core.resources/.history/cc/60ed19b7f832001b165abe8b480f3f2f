@@ -40,10 +40,6 @@ class TestBinarySearchTree {
 		assertTrue(myIntTree.add(5));
 		assertTrue(myIntTree.add(3));
 		assertTrue(myIntTree.add(8));
-		assertTrue(myIntTree.add(9));
-		assertTrue(myIntTree.add(11));
-		assertTrue(myIntTree.add(1));
-		
 		assertFalse(myIntTree.add(8), "Should be false");
 		
 		assertTrue(myStringTree.add("Balin"));
