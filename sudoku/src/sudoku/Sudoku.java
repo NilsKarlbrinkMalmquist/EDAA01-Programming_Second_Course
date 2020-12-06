@@ -58,7 +58,7 @@ public class Sudoku implements SudokuSolver {
 	
 	
 	
-	public int [][] sudokuMatrix = new int [9][9];
+	public int [][] sudokuMatrix = new int [9][9];	//Deklares the sudoku-variable which is a 9x9 matrix
 	
 	public Sudoku() {
 		
@@ -67,8 +67,9 @@ public class Sudoku implements SudokuSolver {
 	//Assigns the number to the given row and column
 	@Override
 	public void setNumber(int row, int col, int number) {
-		check(row, col, number);
-		sudokuMatrix[row][col] = number;
+		check(row, col, number);	//calls the private help method chech to check that number is inside [1..9] and row and col is
+		                            //        inside [0..8]                        	
+		sudokuMatrix[row][col] = number;		//Assigns number at row, col in the sudoku matrix
 	}
 	
 	//Check if it's ruels compliant to assign number at the given row and column.
@@ -129,7 +130,7 @@ public class Sudoku implements SudokuSolver {
 	}
 	
 	private boolean solve(int row, int col){
-		if(sudokuMatrix[8][8] != 0) {
+		if(row == 9) {
 			return true;
 		}
 		
@@ -178,7 +179,13 @@ public class Sudoku implements SudokuSolver {
 	public void setNumbers(int[][] numbers) {
 		for(int row = 0; row <= 8; row++) {
 			for(int col = 0; col <= 8; col ++) {
-				setNumber(row, col, numbers[row][col]);
+				if(numbers[row][col] != 0) {				//Use setNumber if the digit at row, col is not 0
+					setNumber(row, col, numbers[row][col]);
+				}
+				else {							//Use removeNumber if the digit at row, col is 0 which means empty spot
+					removeNumber(row, col);
+				}
+				
 			}
 		}
 		
