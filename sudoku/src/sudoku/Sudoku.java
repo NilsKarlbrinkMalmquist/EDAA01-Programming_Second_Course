@@ -5,40 +5,24 @@ public class Sudoku implements SudokuSolver {
 	public static void main (String[] args) {
 		Sudoku sudoku = new Sudoku();
 		
-		sudoku.setNumber(0, 2, 8);
-		sudoku.setNumber(0, 5, 9);
-		sudoku.setNumber(0, 7, 6);
-		sudoku.setNumber(0, 8, 2);
+//		sudoku.setNumber(0, 2, 8);
+//		sudoku.setNumber(0, 5, 9);
+//		sudoku.setNumber(0, 7, 6);
+//		sudoku.setNumber(0, 8, 2);
 		
-		sudoku.setNumber(1, 8, 5);
+		int[][] matrix = new int[][] {
+			{0, 0, 8, 0, 0, 9, 0, 6, 2 },
+			{0, 0, 0, 0, 0, 0, 0, 0, 5 },
+			{1, 0, 2, 5, 0, 0, 0, 0, 0 },
+			{0, 0, 0, 2, 1, 0, 0, 9, 0 },
+			{0, 5, 0, 0, 0, 0, 6, 0, 0 },
+			{6, 0, 0, 0, 0, 0, 0, 2, 8 },
+			{4, 1, 0, 6, 0, 8, 0, 0, 0 },
+			{8, 6, 0, 0, 3, 0, 1, 0, 0 },
+			{0, 0, 0, 0, 0, 0, 4, 0, 0 },
+		};
 		
-		sudoku.setNumber(2, 0, 1);
-		sudoku.setNumber(2, 2, 2);
-		sudoku.setNumber(2, 3, 5);
-		
-		sudoku.setNumber(3, 3, 2);
-		sudoku.setNumber(3, 4, 1);
-		sudoku.setNumber(3, 7, 9);
-		
-		sudoku.setNumber(4, 1, 5);
-		sudoku.setNumber(4, 6, 6);
-		
-		sudoku.setNumber(5, 0, 6);
-		sudoku.setNumber(5, 7, 2);
-		sudoku.setNumber(5, 8, 8);
-		
-		sudoku.setNumber(6, 0, 4);
-		sudoku.setNumber(6, 1, 1);
-		sudoku.setNumber(6, 3, 6);
-		sudoku.setNumber(6, 5, 8);
-		
-		sudoku.setNumber(7, 0, 8);
-		sudoku.setNumber(7, 1, 6);
-		sudoku.setNumber(7, 4, 3);
-		sudoku.setNumber(7, 6, 1);
-		
-		sudoku.setNumber(8, 6, 4);
-		
+		sudoku.setNumbers(matrix);
 		sudoku.print();
 //		System.out.println(sudoku.trySetNumber(1, 1, 9));
 //		System.out.println(sudoku.trySetNumber(1, 1, 5));
@@ -67,14 +51,18 @@ public class Sudoku implements SudokuSolver {
 	//Assigns the number to the given row and column
 	@Override
 	public void setNumber(int row, int col, int number) {
-		check(row, col, number);	//calls the private help method chech to check that number is inside [1..9] and row and col is
-		                            //        inside [0..8]                        	
+		checkRowCol(row, col);	
+		checkNumber(number);
 		sudokuMatrix[row][col] = number;		//Assigns number at row, col in the sudoku matrix
 	}
 	
 	//Check if it's ruels compliant to assign number at the given row and column.
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
+		
+		checkRowCol(row, col);	
+		checkNumber(number);
+		
 		//Check the row
 		for(int i = 0; i <= 8; i++) {
 			if(number == sudokuMatrix[row][i]) {
@@ -105,13 +93,13 @@ public class Sudoku implements SudokuSolver {
 	
 	@Override
 	public int getNumber(int row, int col) {
-		//int number = [row][col];
+		checkRowCol(row, col);	
 		return sudokuMatrix[row][col];
 	}
 	
 	@Override
 	public void removeNumber(int row, int col) {
-		//check(row, col);
+		checkRowCol(row, col);
 		sudokuMatrix[row][col] = 0;	
 	}
 	
@@ -182,17 +170,25 @@ public class Sudoku implements SudokuSolver {
 				if(numbers[row][col] != 0) {				//Use setNumber if the digit at row, col is not 0
 					setNumber(row, col, numbers[row][col]);
 				}
-				else {							//Use removeNumber if the digit at row, col is 0 which means empty spot
-					removeNumber(row, col);
-				}
-				
+//				else {							//Use removeNumber if the digit at row, col is 0 which means empty spot
+//					removeNumber(row, col);
+//				}
 			}
 		}
 		
 	}
 	
-	private void check(int row, int col, int number) {
-		if(row <= 8 && row >= 0 && col <= 8 && col >= 0 && number >= 1 && number <= 9) {
+	private void checkRowCol(int row, int col) {
+		if(row <= 8 && row >= 0 && col <= 8 && col >= 0) {
+			return;
+		}
+		else {
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	private void checkNumber(int number) {
+		if(number >= 1 && number <= 9) {
 			return;
 		}
 		else {
