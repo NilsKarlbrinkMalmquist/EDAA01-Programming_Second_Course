@@ -51,41 +51,41 @@ public class SudokuController {
 		JButton solveButton = new JButton("Solve");		//Create solve button
 		solveButton.addActionListener(event -> {
 			int [][] sudokuMatrix = new int [9][9];		//Create 9x9 matrix for integers
-			boolean zerosExist = false;					//Boolean that checks if "0" has been assigned to a box
+			boolean notCorrectNumber = false;					//Boolean that checks if "0" has been assigned to a box
 			
 			for(int i = 0; i < 9; i++) {
 	            for(int j = 0; j < 9; j++) {
-	                if(text[i][j].getText().isEmpty()) {	//Set empty boxes to 0
+	                if(text[i][j].getText().matches("[1-9]") && text[i][j].getText().length() < 2) {
+	                	sudokuMatrix[i][j] = Integer.parseInt((text[i][j].getText())); 
+	                }
+	                else if(text[i][j].getText().isEmpty()) {	//Set empty boxes to 0
 	                	sudokuMatrix[i][j] = 0;
 	                }
-	                else if(Integer.valueOf(text[i][j].getText()) == 0){	//If user has typed in "0" show dialog window and set zerosExist to true
+	                else{	//If user has typed in "0" show dialog window and set zerosExist to true
 	                	JOptionPane.showInternalMessageDialog(pane, "All numbers must be between 1-9");
-	                	zerosExist = true;
-	                }
-	                else{		//Assign the number in the text field at row, col in the matrix
-	                	sudokuMatrix[i][j] = Integer.valueOf((text[i][j].getText())); 
+	                	notCorrectNumber = true;
 	                }
 	            }
 	        }
 			
-			if(zerosExist == false) {		//Only try to solve if user has not typed any zeros
+			if(notCorrectNumber == false) {		//Only try to solve if user has not typed any zeros
 				try {						//Try to solve, if number is outside 1-9 catch exception
 					sudoku.setNumbers(sudokuMatrix);
-					
-					if(sudoku.solve() == true) {	//If solvable set the solved sudoku to the text fields:
-						for(int i = 0; i < 9; i++) {
-							for(int j = 0; j < 9; j++) {
-								text[i][j].setText(String.valueOf(sudoku.getNumber(i, j)));
-							}
-						}
-					}
-					else {		//if not solvable how message dialog
-						JOptionPane.showInternalMessageDialog(pane, "Sudoku is not solvable");
-						sudoku.clear();
-					}
-				}
+				}							
 				catch(IllegalArgumentException e) { 
 					JOptionPane.showInternalMessageDialog(pane, "All numbers must be between 1-9");
+					return;
+				}
+				if(sudoku.solve() == true) {	//If solvable set the solved sudoku to the text fields:
+					for(int i = 0; i < 9; i++) {
+						for(int j = 0; j < 9; j++) {
+							text[i][j].setText(String.valueOf(sudoku.getNumber(i, j)));
+						}
+					}
+				}
+				else {		//if not solvable how message dialog
+					JOptionPane.showInternalMessageDialog(pane, "Sudoku is not solvable");
+					sudoku.clear();
 				}
 			}	
 		});

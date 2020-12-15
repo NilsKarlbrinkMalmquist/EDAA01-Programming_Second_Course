@@ -35,15 +35,21 @@ public class Sudoku implements SudokuSolver {
 	
 	
 	
-	public int [][] sudokuMatrix = new int [9][9]; 	//Deklares the sudoku board as a 9x9 matrix consisting of Integers
-	public boolean checkStartBoard = true;		//Deklares the boolean checkStartBoard that indicates if the 
+	private int [][] sudokuMatrix = new int [9][9]; 	//Deklares the sudoku board as a 9x9 matrix consisting of Integers
+	private boolean checkStartBoard = true;		//Deklares the boolean checkStartBoard that indicates if the 
 												//starting board complies with the sudoku rules
 	
-	public Sudoku() {
-		
-	}
+
 	
-	//Assigns a number to the given row and column
+	/**
+	 * Sets the digit number in the box row, col.
+	 * 
+	 * @param row    The row
+	 * @param col    The column
+	 * @param number The digit to insert in row, col
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	@Override
 	public void setNumber(int row, int col, int number) {
 		checkRowCol(row, col);		//Call the private help method checkRowCol to determine that row & col are inside [0..8]
@@ -52,7 +58,18 @@ public class Sudoku implements SudokuSolver {
 		
 	}
 	
-	//Check if it's rules compliant to assign number at the given row and column.
+	/**
+	 * Checks if the digit "number" can be assigned to the row "row" and the column
+	 *  "col". If it is not possible according to the sudoku rules return false.
+	 *  
+	 * @param row		The row
+	 * @param col		The column
+	 * @param number	The digit to insert in row, col 
+	 * @return			True if number can be assigned to row and col according to 
+	 * 					the rules. Otherwise false.
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]                        
+	 */
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
 		
@@ -88,19 +105,36 @@ public class Sudoku implements SudokuSolver {
 		return true;				//if false has not been returned in the above rule-checks it is ok to set the number and true is returned
 	}
 	
+	/**
+	 * Returns the number at the row "row" and column "col".
+	 * 
+	 * @param row		The row
+	 * @param col		The column
+	 * @return 			The number at row, col
+	 * @throws IllegalArgumentException if row or col is outside [0..8]
+	 */
 	@Override
 	public int getNumber(int row, int col) {
 		checkRowCol(row, col);			//Call the private help method checkRowCol to determine that row & col are inside [0..8]	
 		return sudokuMatrix[row][col];		//returns the number at row, col
 	}
 	
+	/**
+	 * Removes the number at the row "row" and column "col";
+	 * 
+	 * @param row		The row
+	 * @param col		The column
+	 * @throws IllegalArgumentException if row or col is outside [0..8]
+	 */
 	@Override
 	public void removeNumber(int row, int col) {
 		checkRowCol(row, col);			//Call the private help method checkRowCol to determine that row & col are inside [0..8]
 		sudokuMatrix[row][col] = 0;		//Removes the number at row, col
 	}
 	
-	//Clears the entire sudoku by clearing (setting to 0) each box on the board
+	/**
+	 * Removes all the numbers from the sudoku.
+	 */
 	@Override
 	public void clear() {
 		for(int row = 0; row <= 8; row++) {
@@ -110,7 +144,11 @@ public class Sudoku implements SudokuSolver {
 		}
 	}
 	
-	//Public solve method
+	/**
+	 * Solves the soduku and returns true if it is solvable. 
+	 * 
+	 * @return			True if the soduku is solvable
+	 */
 	@Override
 	public boolean solve() {
 		if(checkStartBoard == true) { 	//if the start board is rule compliant call the private help method solve otherwise return false
@@ -156,7 +194,11 @@ public class Sudoku implements SudokuSolver {
 		return false;
 	}
 	
-	//returns a copy of the sudoku board
+	/**
+	 * Returns the sudoku board.
+	 * 
+	 * @return			All the numbers in the sudoku.
+	 */
 	@Override
 	public int[][] getNumbers() {
 		int [][] tempMatrix = new int [9][9];
@@ -168,7 +210,12 @@ public class Sudoku implements SudokuSolver {
 		return tempMatrix;
 	}
 	
-	//Sets a matrix as the sudoku board
+	/**
+	 * Assigns all the digits in the matrix numbers to the sudoku.
+	 * 
+	 * @param			An int-matrix
+	 * @throws IllegalArgumentException if not all numbers in [0..9]
+	 **/
 	@Override
 	public void setNumbers(int[][] numbers) {
 		checkStartBoard = true;		//Assume that the starting board is rule comliant
@@ -212,7 +259,8 @@ public class Sudoku implements SudokuSolver {
 	
 	
 	
-	//Print-method for testing purposes
+	//Print-method for testing purposes. Not used in the sudoku-program. 
+	/*
 	public void print() {
 		for(int i = 0; i <= 8; i++) {
 			for(int j = 0; j <= 8; j++) {
@@ -221,4 +269,5 @@ public class Sudoku implements SudokuSolver {
 			System.out.println();
 		}
 	}
+	*/
 }
