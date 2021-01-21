@@ -102,13 +102,9 @@ public class SudokuController {
 		
 		buttonPanel.add(solveButton, BorderLayout.EAST);
 		buttonPanel.add(clearButton, BorderLayout.EAST);
-			
 		pane.add(buttonPanel, BorderLayout.SOUTH);
 		pane.add(sudokuPanel,BorderLayout.CENTER);
-		
 		frame.pack();
 		frame.setVisible(true);
-		
 	}
-
 }

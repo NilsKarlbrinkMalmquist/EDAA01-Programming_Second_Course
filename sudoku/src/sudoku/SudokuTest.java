@@ -23,7 +23,6 @@ class SudokuTest {
 
 	@Test
 	void testSetNumber() {
-		
 		sudoku.setNumber(0, 0, 3);
 		sudoku.setNumber(5, 8, 7);
 		sudoku.setNumber(6, 4, 1);
@@ -155,7 +154,6 @@ class SudokuTest {
 		};
 		sudoku.setNumbers(unsolvableSudoku2);
 		assertFalse(sudoku.solve());
-
 	}
 
 	@Test
@@ -213,5 +211,4 @@ class SudokuTest {
 		sudoku.clear();
 		assertThrows(IllegalArgumentException.class, () -> sudoku.setNumbers(testSudoku2));
 	}
-
 }

@@ -5,6 +5,7 @@ public class Sudoku implements SudokuSolver {
 	public static void main (String[] args) {
 		Sudoku sudoku = new Sudoku();
 		
+		//Tests:
 //		int[][] matrix = new int[][] {
 //			{0, 0, 6, 0, 0, 9, 0, 6, 2 },
 //			{0, 0, 0, 0, 0, 0, 0, 0, 5 },
@@ -72,7 +73,6 @@ public class Sudoku implements SudokuSolver {
 	 */
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
-		
 		checkRowCol(row, col);		//Call the private help method checkRowCol to determine that row & col are inside [0..8]
 		checkNumber(number);		//Call the private help method checkNumber to determine that number is inside [1..9]
 		
@@ -251,7 +251,6 @@ public class Sudoku implements SudokuSolver {
 			throw new IllegalArgumentException();
 		}
 	}
-
 	
 	
 	
